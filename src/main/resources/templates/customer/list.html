@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>顧客一覧</title>
+    <meta charset="UTF-8">
+</head>
+<body>
+<h1>顧客一覧</h1>
+
+<form id="searchForm" method="get" th:action="@{/customers}">
+    <input type="hidden" name="sortField" id="sortField" th:value="${sortField}" />
+    <input type="hidden" name="sortDir" id="sortDir" th:value="${sortDir}" />
+
+    <table border="1">
+        <thead>
+        <tr>
+            <th>
+                <a href="#" onclick="sort('name')">名前</a><br/>
+                <input type="text" name="name" th:value="${name}" />
+            </th>
+            <th>
+                <a href="#" onclick="sort('birthDate')">生年月日</a><br/>
+                <input type="date" name="birthDate"
+                       th:value="${birthDate != null ? #temporals.format(birthDate, 'yyyy-MM-dd') : ''}" />
+            </th>
+            <th>
+                <a href="#" onclick="sort('address')">住所</a><br/>
+                <input type="text" name="address" th:value="${address}" />
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="customer : ${customers}">
+            <td th:text="${customer.name}"></td>
+            <td th:text="${customer.birthDate}"></td>
+            <td th:text="${customer.address}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <button type="submit">検索</button>
+    <button type="button" onclick="clearForm()">クリア</button>
+</form>
+
+<script>
+    function sort(field) {
+        const form = document.getElementById('searchForm');
+        const sortField = document.getElementById('sortField');
+        const sortDir = document.getElementById('sortDir');
+
+        if (sortField.value === field) {
+            sortDir.value = sortDir.value === 'asc' ? 'desc' : 'asc';
+        } else {
+            sortField.value = field;
+            sortDir.value = 'asc';
+        }
+
+        form.submit();
+    }
+
+    function clearForm() {
+        document.querySelector('[name="name"]').value = '';
+        document.querySelector('[name="birthDate"]').value = '';
+        document.querySelector('[name="address"]').value = '';
+    }
+</script>
+</body>
+</html>
