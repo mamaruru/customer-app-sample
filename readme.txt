@@ -19,3 +19,26 @@ INSERT INTO ackss.customers (name, birth_date, address) VALUES
 (N'鈴木 次郎', '1988-01-22', N'北海道札幌市'),
 (N'高橋 美咲', '1995-11-30', N'福岡県福岡市');
 
+
+ーーーーーーーーーーーーーーーーーー
+ステップ1：GitHubで新しいリポジトリを作成
+1.GitHub にログイン
+2.「＋」→「New repository」
+3.リポジトリ名を customer-app-sample に設定
+4.「Private」または「Public」を選択
+5.✅ README, .gitignore, License はチェックを外す（ローカルで管理しているため）
+6.「Create repository」ボタンを押す
+
+ステップ2：ローカルプロジェクトを Git 初期化
+コマンドプロンプトまたはターミナルでプロジェクトのルートへ：
+cd C:\work\20250525\customer-app-sample
+次に以下を実行：
+git init
+git add .
+git commit -m "初回コミット"
+
+ステップ3：GitHub リポジトリと接続してプッシュ
+git remote add origin https://github.com/mamaruru/customer-app-sample.git
+git branch -M main
+git push -u origin main
+
